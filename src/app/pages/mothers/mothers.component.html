@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title> Pregnancy Safe - HomePage </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<style type="text/css">
+  header{
+    background:#AF7AC5 !important;
+  }
+  ul{
+    padding: 0 40px;
+    list-style-type: none;
+  }
+  li{
+    padding: 0px 20px;
+    line-height: 3;
+  }
+  li a{
+    font-size: 20px;
+    color: #fff;
+  }
+
+  h1 {
+    font-size: 28px;
+    color: aliceblue;
+    font-family: "Times New Roman";
+    padding-left: 120px;
+  }
+  .navbar-expand-md .navbar-nav .nav-link{
+    padding: 5px 15px 5px 15px;
+  }
+
+  li a:hover{
+    color: #fff;
+    background: #9c9999;
+  }
+  .navbar{
+    padding: 0;
+  }
+  #top li{
+    padding: 0;
+    line-height: 1.8;
+
+  }
+  #top li a{
+    font-size: 16px;
+    padding: 0;
+  }
+  #top li a:hover{
+    background: none;
+    text-decoration: none;
+  }
+  .col-md-2 .fab{
+    font-size: 20px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-left: 10px;
+
+  }
+  .navbar-brand img{
+    height: 40px;
+  }
+
+  .navbar-logo img{
+    height: 30px;
+  }
+  .ownbg{
+    background: #EC7063!important;
+
+  }
+  @media(max-width: 992px){
+    .col-md-2 .fab{
+      font-size: 18px;
+      padding-right: 0;
+    }
+  }
+
+  .a{
+    color: black;
+  }
+
+</style>
+<body>
+<header>
+  <div class="container" id="top">
+    <div class="row">
+      <div class="col-md-10 col-sm-12 col-xs-12">
+        <ul class=" list-group list-group-horizontal">
+          <li><i></i><a href="http://localhost:4200/PregnancySafe" > Volver </a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <nav class="navbar navbar-expand-md navbar-dark ownbg">
+    <h1> <u> <b> Madre </b> </u> </h1>
+
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="http://localhost:4200/PregnancySafe/medicalExam">Cita Medica</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Estado de Embarazo</a>
+        </li>
+      </ul>
+    </div>
+
+  </nav>
+</header>
+
+<div class="table-wrapper">
+  <h1 class="a">Pregnancy Safe| Mothers</h1>
+  <form (submit)="onSubmit()" #motherForm="ngForm">
+    <mat-form-field>
+      <input matInput placeholder="Name" name="name" required [(ngModel)]="motherData.name">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Age" name="age" required [(ngModel)]="motherData.age">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Address" name="address" required [(ngModel)]="motherData.address">
+    </mat-form-field>
+    <ng-container *ngIf="isEditMode; else elseTemplate">
+      <button mat-button color="primary">Update</button>
+      <button mat-button color="warn" (click)="cancelEdit()">Cancel</button>
+    </ng-container>
+    <ng-template #elseTemplate>
+      <button mat-button color="primary">Add</button>
+    </ng-template>
+  </form>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> #Id </th>
+      <td mat-cell *matCellDef="let element"> {{ element.id }} </td>
+    </ng-container>
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{ element.name }} </td>
+    </ng-container>
+    <ng-container matColumnDef="age">
+      <th mat-header-cell *matHeaderCellDef> Age </th>
+      <td mat-cell *matCellDef="let element"> {{ element.age }}</td>
+    </ng-container>
+    <ng-container matColumnDef="address">
+      <th mat-header-cell *matHeaderCellDef> Address </th>
+      <td mat-cell *matCellDef="let element"> {{ element.address }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+        [ngClass]="{ 'editable-row': motherData.id == row.id}"></tr>
+  </table>
+  <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 15]"
+                 showFirstLastButtons></mat-paginator>
+</div>
+
+</body>
+</html>
+
+
+
